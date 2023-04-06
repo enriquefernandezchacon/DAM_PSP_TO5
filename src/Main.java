@@ -20,7 +20,6 @@ public class Main {
     private static Rol usuario;
     private static List<Usuario> usuarios;
     private static boolean funcionando = true;
-
     private static String usuarioActual;
     private static String contrasenaActual;
     private static Usuario user;
@@ -92,22 +91,23 @@ public class Main {
         boolean inicio = false;
         if (usuarioActual.equals("salir")) {
             funcionando = false;
-            cerrarPrograma();
-        }
-        for (Usuario usuario : usuarios) {
-            if (usuario.nombre().equals(usuarioActual) && usuario.contrasena().equals(contrasenaActual)) {
-                Consola.salidaNormal("Inicio de sesión exitoso.");
-                inicio = true;
-                user = usuario;
-                break;
+        } else {
+            for (Usuario usuario : usuarios) {
+                if (usuario.nombre().equals(usuarioActual) && usuario.contrasena().equals(contrasenaActual)) {
+                    Consola.salidaNormal("Inicio de sesión exitoso.");
+                    inicio = true;
+                    user = usuario;
+                    break;
+                }
             }
-        }
-        if (!inicio) {
-            throw new RuntimeException("Usuario o contraseña incorrectos.");
+            if (!inicio) {
+                throw new RuntimeException("Usuario o contraseña incorrectos.");
+            }
         }
     }
 
     private static void cerrarPrograma() {
+        Consola.saltoDeLinea();
         Consola.salidaNormal("Cerrando programa...");
         pararPrograma();
         Consola.salidaNormal("Programa cerrado.");
