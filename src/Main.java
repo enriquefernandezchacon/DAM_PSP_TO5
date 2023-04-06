@@ -19,7 +19,7 @@ public class Main {
     private static Rol bibliotecario;
     private static Rol usuario;
     private static List<Usuario> usuarios;
-    private static boolean funcionando = true;
+    private static boolean programaCorriendo = true;
     private static String usuarioActual;
     private static String contrasenaActual;
     private static Usuario user;
@@ -36,12 +36,18 @@ public class Main {
 
     public static void main(String[] args) {
         Consola.salidaNormal("Iniciando programa...");
-        pararPrograma();
+        esperarSegundo();
         Consola.salidaNormal("Creando roles...");
         crearRoles();
-        pararPrograma();
+        esperarSegundo();
         Consola.salidaNormal("Creando usuarios...");
         crearUsuarios();
+        ejecucionDelPrograma();
+
+        cerrarPrograma();
+    }
+
+    private static void ejecucionDelPrograma() {
         do {
             try {
                 Consola.saltoDeLinea();
@@ -55,14 +61,12 @@ public class Main {
                     } catch (Exception e) {
                         Consola.salidaError("Error: " + e.getMessage());
                     }
-                } while (funcionando);
+                } while (programaCorriendo);
             } catch (Exception e) {
                 Consola.salidaError("Error: " + e.getMessage());
-                pararPrograma();
+                esperarSegundo();
             }
-        } while (funcionando);
-
-        cerrarPrograma();
+        } while (programaCorriendo);
     }
 
     private static void crearRoles() {
@@ -90,7 +94,7 @@ public class Main {
     private static void comprobarUsuario() {
         boolean inicio = false;
         if (usuarioActual.equals("salir")) {
-            funcionando = false;
+            programaCorriendo = false;
         } else {
             for (Usuario usuario : usuarios) {
                 if (usuario.nombre().equals(usuarioActual) && usuario.contrasena().equals(contrasenaActual)) {
@@ -109,19 +113,19 @@ public class Main {
     private static void cerrarPrograma() {
         Consola.saltoDeLinea();
         Consola.salidaNormal("Cerrando programa...");
-        pararPrograma();
+        esperarSegundo();
         Consola.salidaNormal("Programa cerrado.");
         System.exit(0);
     }
 
     private static void cerrarSesion() {
         Consola.salidaNormal("Cerrando sesión...");
-        pararPrograma();
+        esperarSegundo();
         Consola.salidaNormal("Sesión cerrada.");
         inicioSesion();
     }
 
-    private static void pararPrograma() {
+    private static void esperarSegundo() {
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {
@@ -129,7 +133,6 @@ public class Main {
         }
     }
 
-    //Metodo mostrarMenu() que hace uso de la clase consola y los permisos del usuario para las distintras opciones
     private static void mostrarMenu() {
         Consola.saltoDeLinea();
         Consola.salidaNormal("Bienvenido, " + user.nombre() + ". ¿Qué desea hacer?");
@@ -194,6 +197,3 @@ public class Main {
         }
     }
 }
-
-
-
