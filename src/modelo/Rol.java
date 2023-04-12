@@ -1,7 +1,5 @@
 package modelo;
 
-import java.util.Arrays;
-
 public class Rol {
     private final String nombre;
     private final Permiso[] permisos;
@@ -18,13 +16,5 @@ public class Rol {
             }
         }
         return false;
-    }
-
-    @Override
-    public String toString() {
-        return "modelo.Rol{" +
-                "nombre='" + nombre + '\'' +
-                ", permisos=" + Arrays.toString(permisos) +
-                '}';
     }
 }
